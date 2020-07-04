@@ -1,35 +1,29 @@
 <?php
-$login=false;
+$showalert=false;
 $showerror=false;
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {
-  $conn=mysqli_connect("localhost", "root", "", "ibm");
-  if(!$conn)
-  {
-      die("Error".mysqli_connect_error());
-  }
-  $email=$_POST["email"];
+    $conn=mysqli_connect("localhost", "root", "", "ibm");
+    if(!$conn)
+    {
+        die("Error".mysqli_connect_error());
+    }
+  $email =$_POST["email"];
+  $mname =$_POST["mname"];
   $password=$_POST["password"];
-    $sql="SELECT * FROM users WHERE email='$email' AND password='$password' ";
+  $sql="SELECT * FROM `userdetail` WHERE `email` = '$email' AND 'mothername'='$mname' ";
     $result=mysqli_query($conn, $sql); 
     if($result)
-    {
-      echo True;
-    
-    $num=mysqli_num_rows($result);
-            if($num==1)
-            {
-            $login=true;
-                session_start();
-                $_SESSION['form']=true;
-                $_SESSION['email']=$email;
-                header("location: dashboard.php");
-            }
-            else
-            {
-              $showerror="Invalid Credentials";
-            }
+    { 
+        $sql="UPDATE `users` SET `password` = '$password' WHERE `email` = '$email' ";
+    $result=mysqli_query($conn, $sql); 
+    $showalert=true;
     }
+  else
+  {
+    
+    $showerror=true;
+  }
 }
 ?>
 <!doctype html>
@@ -52,10 +46,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
   text-align: center;
 }
 </style>
-    <title>Login </title>
+    <title>Forget Password</title>
   </head>
   <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="index.php">Company Name</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -80,10 +74,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
 </nav>
 
 <?php
-if($login)
+if($showalert)
 {
-echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Success!</strong> You are logged in.
+  echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Success!</strong> Your password is changed.
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -91,8 +85,8 @@ echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
 }
 if($showerror)
 {
-  echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>Error!</strong>'.$showerror.'.
+  echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Error!</strong> Invalid Credentials.
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -100,26 +94,27 @@ if($showerror)
 }
 ?>
 
-<div class="container my-4">
- <div class="card">
- <h1 class="card-header">Login</h1>
- <div class="card-body">
- <form action="/ibm/login.php" method="POST">
+      <div class="container card my-4">
+    <h1 class="card-header">Forget Password</h1>
+    <div class="card-body">
+    <form action="/ibm/forget.php" method="post">
   <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+    <label for="email">Email id</label>
+    <input type="text" class="form-control" id="email" name="email">
+  </div>
+  <div class="form-group">
+    <label for="mname">Mother Name</label>
+    <input type="text" class="form-control" id="mname" name="mname">
   </div>
   <div class="form-group">
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" name="password">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-  <a href="forget.php" class="btn btn-primary"> Forget Password</a>
 </form>
-</div>
-</div>
-</div>
-<div class="footer"> <p> @copyrights 2020</p> </div>
+    </div>
+    </div>
+    <div class="footer"> <p> @copyrights 2020</p> </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

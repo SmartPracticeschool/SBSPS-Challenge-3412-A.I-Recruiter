@@ -20,8 +20,17 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  width: 20%;
+  width: 48%;
   border-radius: 8px;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
 }
   </style>
   <body>
@@ -50,18 +59,26 @@
 </nav>
 
 
-<div class="container my-4">
-<h1>Instructions</h1>
+<div class="container my-4 card">
+<h1 class="card-header">Instructions</h1>
 <br>
-    <h2> Before Beginning  the exam:</h2>
-    <ol>
+  <h2 class="card-header">Details to fill a form</h2>
+  <ol class="card-body">
+    <li>Personal details</li>
+    <li>Eduction details</li>
+    <li>Other Education Details</li>
+    <li>Certification</li>
+    <li>Technical Languages</li>
+</ol>
+    <h2 class="card-header"> Before Beginning  the exam:</h2>
+    <ol class="card-body">
         <li>Make sure you have a good internet connection</li>
         <li>log out of blackboard and then in to blackboared beofre you begin.this will help with connectivity issues.</li>
         <li>Shut down all instant messaging tools and emails programs as they can conflict with blackboard</li>
         <li>When you begin the exam click the only ONCE to launch the test.Double clicking can lock the test.</li>
     </ol>
-    <h2>During the exam</h2>
-    <ol>
+    <h2 class="card-header">During the exam</h2>
+    <ol class="card-body">
         <li>Do not resize (minimize) the browser during the test.</li>
         <li>Never click the "Back" button on the browser.This will take you out of the test and prevent blackboard frpm tracking your selected answers.</li>
         <li>Avoid using the scroll button on your mouse if present.</li>
@@ -69,8 +86,8 @@
         <li>save your test using the "save " button periodically during the exam</li>
     </ol>
     <br>
-    <h2>Instruction for accessing the exam</h2>     
-    <ol>
+    <h2 class="card-header">Instruction for accessing the exam</h2>     
+    <ol class="card-body">
         <li>Read the notes above titled "Before beginning the exam " and "During the exam"</li>
         <li>Your <strong>instruction will provide your password.</strong>this password is required to open  the exam. instruction </li>
         <li>log in to the blacbored course.</li>
@@ -82,19 +99,21 @@
          </ul>
           <ol>
           <li>Use the password sent to your student email account to open the exam.</li>
-          <li>you will have 1.5 hours to complete your exam</li>
+          <li>you will have 20 minutes to complete your exam</li>
           <li> the exam must be completed in one sitting .you can only open it once.</li>
           <li> answer all question in the exam</li>
           <li> Click the "submit " button in the bottom right corner when you are done to submit your work.</li>       
         </ol> 
    
     </ol>
+    <div class="container">
     <button class="button"><a href="signup.php">SignUp</a></button>
     <button class="button"><a href="login.php">login</a></button>
+    </div>
 </div>
 
 
-
+<div class="footer"> <p> @copyrights 2020</p> </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

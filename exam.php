@@ -31,6 +31,8 @@ $conn=mysqli_connect("localhost", "root", "", "ibm");
     $sql="INSERT INTO `user_ans` (`user_id`, `email`, `totalques`, `attemptqu`, `anscorrect`) VALUES (NULL, '$email', '10', '$count', '$correct')";
     $result=mysqli_query($conn,$sql);
       if($result){ 
+        $sql="UPDATE `status` SET `s3` = 'Completed' WHERE `status`.`email` = '$email'";
+        $result=mysqli_query($conn,$sql);
         $email=$_SESSION['email'];
         session_start();
         session_unset();
@@ -53,6 +55,17 @@ $conn=mysqli_connect("localhost", "root", "", "ibm");
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style/TimeCircles.css" />
+    <style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+</style>
     <script src="style/TimeCircles.js"></script>
 
     <title>Test </title>
@@ -123,7 +136,7 @@ $conn=mysqli_connect("localhost", "root", "", "ibm");
     </div>
      </div>
     </div>
-
+    <div class="footer"> <p> @copyrights 2020</p> </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

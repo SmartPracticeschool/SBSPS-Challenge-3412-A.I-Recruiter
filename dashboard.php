@@ -5,22 +5,6 @@ if(!isset($_SESSION['form']) || $_SESSION['form']!=true)
   header("location: index.php");
   exit;
 }
-$conn=mysqli_connect("localhost", "root", "", "ibm");
-  if(!$conn)
-  {
-      die("Error".mysqli_connect_error());
-  }
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-  $email=$_SESSION['email'];
-  session_start();
-  session_unset();
-  session_destroy();
-  session_start();
-  $_SESSION['exam']=true;
-  $_SESSION['email']=$email;
-  header("location: exam.php");
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -32,6 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <style>
+    .button {
+  background-color: lightblue;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 48%;
+  border-radius: 8px;
+}
 .footer {
   position: fixed;
   left: 0;
@@ -42,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   text-align: center;
 }
 </style>
-    <title>Test </title>
+    <title>Dashboard </title>
   </head>
   <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -53,14 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="dashboard.php">Dashboard <span class="sr-only"></span></a>
+    <li class="nav-item active">
+        <a class="nav-link" href="dashboard.php">Dashboard <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="detail.php">Detail <span class="sr-only"></span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="test.php">Test <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="test.php">Test <span class="sr-only"></span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="status.php">Status <span class="sr-only"></span></a>
@@ -73,43 +69,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </nav>
 
 
-<div class="container my-4">
- <h1>Welcome to Test <?php echo $_SESSION['email']; ?></h1>
- <div class="card text-center">
-  <div class="card-header">
-    Company Name
-  </div>
-  <?php
-$email =$_SESSION['email'];
-$sql="SELECT COUNT(user_id) FROM user_ans WHERE email='$email'";
-$result=mysqli_query($conn,$sql);
-$row=mysqli_fetch_array($result);
-$total=$row[0];
-if($total==1)
-{
-  $sql="SELECT * FROM user_ans WHERE email='$email'";
-$result=mysqli_query($conn,$sql);
-  while($row=mysqli_fetch_assoc($result))
-  {
-    echo "<h4> You have successfully completed the test</h4><br>";
-    echo "<h4>Out of 10, you attempt ".$row['attemptqu']." Question<h4><br>";
-    echo "<h4>You corrected ".$row['anscorrect']." Question<h4><br>";
-  }
-}
-else
-{
-
- echo "<div class='card-body'>
-    <h5 class='card-title'>Screening Test </h5>
-    <p class='card-text'>Test is about take 30 minutes to complete.</p>
-    <form action='/ibm/test.php' method='POST' >
-    <button type='submit' class='btn btn-primary'>Start test</button>
-    </form>
-  </div>";
-}
-  ?>
-  
-</div>
+<div class="container my-4 card">
+ <h1 class="card-header">Welcome to Dashboard <?php echo $_SESSION['email']; ?></h1>
+ <div class="card-footer">
+   <br>
+ <button class="button"><a href="detail.php">Detail</a></button>
+    <button class="button"><a href="test.php">Test</a></button>
+    <br><br>
+    <button class="button"><a href="status.php">Status</a></button>
+    <button class="button"><a href="logout.php">logout</a></button>
+ </div>
 </div>
 <div class="footer"> <p> @copyrights 2020</p> </div>
     <!-- Optional JavaScript -->

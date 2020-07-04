@@ -28,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $result = mysqli_query($conn, $sql);  
     if($result){ 
         $insert = true;
+        $sql="INSERT INTO `status` (`email`, `s1`, `s2`, `s3`, `s4`) VALUES ('$email', 'Completed', 'Pending', 'Pending', 'Pending')";
+        mysqli_query($conn,$sql);
         session_start();
                 $_SESSION['form']=true;
                 $_SESSION['username']=$username;
@@ -47,8 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <title>Dashboard </title>
+    <style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+</style>
+    <title>SignUP </title>
   </head>
   <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -163,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </form>
 </div>
 </div>
-
+<div class="footer"> <p> @copyrights 2020</p> </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

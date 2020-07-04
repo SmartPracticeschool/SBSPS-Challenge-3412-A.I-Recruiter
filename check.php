@@ -5,22 +5,6 @@ if(!isset($_SESSION['form']) || $_SESSION['form']!=true)
   header("location: index.php");
   exit;
 }
-$conn=mysqli_connect("localhost", "root", "", "ibm");
-  if(!$conn)
-  {
-      die("Error".mysqli_connect_error());
-  }
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-  $email=$_SESSION['email'];
-  session_start();
-  session_unset();
-  session_destroy();
-  session_start();
-  $_SESSION['exam']=true;
-  $_SESSION['email']=$email;
-  header("location: exam.php");
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,10 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   text-align: center;
 }
 </style>
-    <title>Test </title>
+    <title>Check Result</title>
   </head>
   <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="dashboard.php">Company Name</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -72,45 +56,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>
 </nav>
 
-
-<div class="container my-4">
- <h1>Welcome to Test <?php echo $_SESSION['email']; ?></h1>
- <div class="card text-center">
-  <div class="card-header">
-    Company Name
-  </div>
-  <?php
-$email =$_SESSION['email'];
-$sql="SELECT COUNT(user_id) FROM user_ans WHERE email='$email'";
-$result=mysqli_query($conn,$sql);
-$row=mysqli_fetch_array($result);
-$total=$row[0];
-if($total==1)
+<div class="container card">
+<div class="card-header">
+<h2>Result of <?php echo $_SESSION['email'];?> </h2>
+</div>
+<div class="card-body">
+<?php
+$conn=mysqli_connect("localhost", "root", "", "ibm");
+if(!$conn)
 {
-  $sql="SELECT * FROM user_ans WHERE email='$email'";
+    die("Error".mysqli_connect_error());
+}
+$email=$_SESSION['email'];
+$sql="SELECT * FROM user_ans WHERE email='$email'";
 $result=mysqli_query($conn,$sql);
-  while($row=mysqli_fetch_assoc($result))
-  {
-    echo "<h4> You have successfully completed the test</h4><br>";
-    echo "<h4>Out of 10, you attempt ".$row['attemptqu']." Question<h4><br>";
-    echo "<h4>You corrected ".$row['anscorrect']." Question<h4><br>";
-  }
-}
-else
+while($row=mysqli_fetch_assoc($result))
 {
-
- echo "<div class='card-body'>
-    <h5 class='card-title'>Screening Test </h5>
-    <p class='card-text'>Test is about take 30 minutes to complete.</p>
-    <form action='/ibm/test.php' method='POST' >
-    <button type='submit' class='btn btn-primary'>Start test</button>
-    </form>
-  </div>";
+  echo "<h4> You have successfully completed the test</h4><br>";
+  echo "<h4>Out of 10, you attempt ".$row['attemptqu']." Question<h4><br>";
+  echo "<h4>You corrected ".$row['anscorrect']." Question<h4><br>";
 }
-  ?>
-  
+?>
 </div>
 </div>
+
 <div class="footer"> <p> @copyrights 2020</p> </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

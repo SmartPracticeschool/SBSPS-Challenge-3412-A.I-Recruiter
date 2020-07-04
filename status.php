@@ -5,21 +5,9 @@ if(!isset($_SESSION['form']) || $_SESSION['form']!=true)
   header("location: index.php");
   exit;
 }
-$conn=mysqli_connect("localhost", "root", "", "ibm");
-  if(!$conn)
-  {
-      die("Error".mysqli_connect_error());
-  }
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-  $email=$_SESSION['email'];
-  session_start();
-  session_unset();
-  session_destroy();
-  session_start();
-  $_SESSION['exam']=true;
-  $_SESSION['email']=$email;
-  header("location: exam.php");
+$conn = mysqli_connect('localhost', 'root', '', 'ibm');
+if (!$conn){
+  die("Sorry we failed to connect: ". mysqli_connect_error());
 }
 ?>
 <!doctype html>
@@ -42,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   text-align: center;
 }
 </style>
-    <title>Test </title>
+    <title>Status </title>
   </head>
   <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -59,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       <li class="nav-item">
         <a class="nav-link" href="detail.php">Detail <span class="sr-only"></span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="test.php">Test <span class="sr-only">(current)</span></a>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" href="status.php">Status <span class="sr-only"></span></a>
+        <a class="nav-link" href="test.php">Test <span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="status.php">Status <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="logout.php">Logout <span class="sr-only"></span></a>
@@ -73,42 +61,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </nav>
 
 
-<div class="container my-4">
- <h1>Welcome to Test <?php echo $_SESSION['email']; ?></h1>
- <div class="card text-center">
-  <div class="card-header">
-    Company Name
-  </div>
-  <?php
-$email =$_SESSION['email'];
-$sql="SELECT COUNT(user_id) FROM user_ans WHERE email='$email'";
-$result=mysqli_query($conn,$sql);
-$row=mysqli_fetch_array($result);
-$total=$row[0];
-if($total==1)
+<div class="container my-4 card">
+ <h1 class="card-header">Welcome to Status <?php echo $_SESSION['email']; ?></h1>
+<div class="card-body"></div>
+<div class="container card">
+<?php
+$email = $_SESSION['email'];
+$sql = "SELECT * FROM `status` WHERE `email` = '$email'";
+$result = mysqli_query($conn, $sql);
+while($row = mysqli_fetch_assoc($result))
 {
-  $sql="SELECT * FROM user_ans WHERE email='$email'";
-$result=mysqli_query($conn,$sql);
-  while($row=mysqli_fetch_assoc($result))
-  {
-    echo "<h4> You have successfully completed the test</h4><br>";
-    echo "<h4>Out of 10, you attempt ".$row['attemptqu']." Question<h4><br>";
-    echo "<h4>You corrected ".$row['anscorrect']." Question<h4><br>";
-  }
+  echo "<h2 class='card-header'>Form Status</h2>
+  <h4 class='card-body'>".$row['s1'] . "</h4>
+  <h2 class='card-header'>Upload photo</h2>
+  <h4 class='card-body'>".$row['s2'] . "</h4>
+  <h2 class='card-header'>Test Status</h2>
+  <h4 class='card-body'>".$row['s3'] . "</h4>
+  <h2 class='card-header'>Interview Status</h2>
+  <h4 class='card-body'>".$row['s4'] ."</h4>";
 }
-else
-{
-
- echo "<div class='card-body'>
-    <h5 class='card-title'>Screening Test </h5>
-    <p class='card-text'>Test is about take 30 minutes to complete.</p>
-    <form action='/ibm/test.php' method='POST' >
-    <button type='submit' class='btn btn-primary'>Start test</button>
-    </form>
-  </div>";
-}
-  ?>
-  
+?>
 </div>
 </div>
 <div class="footer"> <p> @copyrights 2020</p> </div>

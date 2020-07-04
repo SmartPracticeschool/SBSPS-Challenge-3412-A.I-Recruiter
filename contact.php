@@ -1,27 +1,3 @@
-<?php
-$conn = mysqli_connect('localhost', 'root', '', 'ibm');
-
-if (!$conn){
-  die("Sorry we failed to connect: ". mysqli_connect_error());
-}
-$Ninsert=false;
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $password=$_POST["password"];
-    $sql = "INSERT INTO `users` (`email`, `name`, `password`) VALUES ('$email', '$name', '$password')";
-    $result = mysqli_query($conn, $sql);  
-    if($result){ 
-        session_start();
-                $_SESSION['form']=true;
-                $_SESSION['email']=$email;
-                header("location: signup2.php");
-    }
-    else{
-        $Ninsert=true;
-    } 
-}
-?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -42,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   text-align: center;
 }
 </style>
-    <title>SignUp </title>
+    <title>Contact </title>
   </head>
   <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -56,51 +32,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       <li class="nav-item">
         <a class="nav-link" href="index.php">Instructions <span class="sr-only"></span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="signup.php">SignUp <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="signup.php">SignUp <span class="sr-only"></span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="login.php">Login <span class="sr-only"></span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="contact.php">Contact <span class="sr-only"></span></a>
+      <li class="nav-item active">
+        <a class="nav-link" href="contact.php">Contact <span class="sr-only">(current)</span></a>
       </li>
     </ul>
   </div>
 </nav>
 
-  <?php
-  if($Ninsert){
-    echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-    <strong>Error!</strong> Registration Failed
-    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-      <span aria-hidden='true'>×</span>
-    </button>
-  </div>";
-  }
-  ?>
 
 <div class="container my-4 card">
-  
- <h1 class="card-header">SignUp</h1>
+ <h1 class="card-header">Contact</h1>
  <div class="card-body">
- <form action="/ibm/signup.php" method="POST">
- <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
-  </div>
-  <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" name="password">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</div>
+   <h2>Rohan Kumar Prasad</h2>
+   <h4>rohankumark.latest@gmail.com</h4>
+ </div>
 </div>
 <div class="footer"> <p> @copyrights 2020</p> </div>
     <!-- Optional JavaScript -->
