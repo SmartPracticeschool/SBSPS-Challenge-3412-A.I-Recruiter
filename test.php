@@ -103,7 +103,10 @@ else
     <h5 class='card-title'>Screening Test </h5>
     <p class='card-text'>Test is about take 30 minutes to complete.</p>
     <form action='/ibm/test.php' method='POST' >
-    <button type='submit' class='btn btn-primary'>Start test</button>
+    <button type='submit' class='btn btn-primary' onclick='location.href='{% url 'script' %}''>Start test</button>
+    {% if data %}
+    {{data}}
+    {% endif %}
     </form>
   </div>";
 }
