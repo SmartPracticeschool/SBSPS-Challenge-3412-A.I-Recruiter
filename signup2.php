@@ -175,6 +175,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </form>
 </div>
 </div>
+<div class="container">
+<?php
+$data= file_get_contents("flows.json");
+$fdata = json_decode($data);
+
+print_r($data);
+?>
+</div>
 <div class="footer"> <p> @copyrights 2020</p> </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

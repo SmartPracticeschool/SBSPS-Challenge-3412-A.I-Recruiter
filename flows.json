@@ -1,0 +1,198 @@
+[
+    {
+        "id": "c3a2bf6d.d85c3",
+        "type": "tab",
+        "label": "Project",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ef967a04.1ed838",
+        "type": "ui_form",
+        "z": "c3a2bf6d.d85c3",
+        "name": "",
+        "label": "",
+        "group": "555c2de1.4bbd44",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Enter your input",
+                "value": "input",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "input": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 160,
+        "y": 199,
+        "wires": [
+            [
+                "a76083e0.d027d"
+            ]
+        ]
+    },
+    {
+        "id": "a76083e0.d027d",
+        "type": "function",
+        "z": "c3a2bf6d.d85c3",
+        "name": "",
+        "func": "msg.payload= msg.payload.input;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 220,
+        "wires": [
+            [
+                "cc771309.37266",
+                "cf177822.bf3078"
+            ]
+        ]
+    },
+    {
+        "id": "cc771309.37266",
+        "type": "watson-conversation-v1",
+        "z": "c3a2bf6d.d85c3",
+        "name": "",
+        "workspaceid": "4aef702e-23ec-46fd-947f-b819c8d71103",
+        "multiuser": false,
+        "context": true,
+        "empty-payload": false,
+        "service-endpoint": "https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/9755b3ed-4940-4b77-b26e-9224fdeac2d6",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "a7565bd0.150c78",
+                "8cff59d0.44f9d8"
+            ]
+        ]
+    },
+    {
+        "id": "8cff59d0.44f9d8",
+        "type": "function",
+        "z": "c3a2bf6d.d85c3",
+        "name": "",
+        "func": "if(msg.payload.output.generic[0].response_type==\"image\"){\n    msg.url = msg.payload.output.generic[0].source\n    msg.payload = msg.payload.output.generic[0].title\n}\nelse{\n    msg.url=\"https://t3.ftcdn.net/jpg/02/20/14/38/240_F_220143804_fc4xRygvJ8bn8JPQumtHJieDN4ORNyjs.jpg\"\n    msg.payload = msg.payload.output.text[0];\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 280,
+        "wires": [
+            [
+                "a7565bd0.150c78",
+                "37b26e38.ff4112",
+                "e9e25af2.226c98",
+                "138bbc6b.e99024"
+            ]
+        ]
+    },
+    {
+        "id": "a7565bd0.150c78",
+        "type": "debug",
+        "z": "c3a2bf6d.d85c3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 600,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "37b26e38.ff4112",
+        "type": "ui_template",
+        "z": "c3a2bf6d.d85c3",
+        "group": "555c2de1.4bbd44",
+        "name": "",
+        "order": 5,
+        "width": "6",
+        "height": "5",
+        "format": "<img ng-src={{msg.url}} alt=\"Image\">",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 800,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e9e25af2.226c98",
+        "type": "ui_audio",
+        "z": "c3a2bf6d.d85c3",
+        "name": "",
+        "group": "555c2de1.4bbd44",
+        "voice": "en-GB",
+        "always": "",
+        "x": 780,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "cf177822.bf3078",
+        "type": "ui_text",
+        "z": "c3a2bf6d.d85c3",
+        "group": "555c2de1.4bbd44",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 260,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "138bbc6b.e99024",
+        "type": "ui_text",
+        "z": "c3a2bf6d.d85c3",
+        "group": "555c2de1.4bbd44",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 830,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "555c2de1.4bbd44",
+        "type": "ui_group",
+        "z": "",
+        "name": "UI",
+        "tab": "b8cd165c.aed258",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "b8cd165c.aed258",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Chatbot",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
