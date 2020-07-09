@@ -147,6 +147,8 @@ else{
  <h1 class="card-header">Welcome to Schedule Interview <?php echo $_SESSION['email']; ?></h1>
 
   <div class="container my-4">
+    <h1 class="card-header">copy this link to time </h1>
+    <h3 class="card-body">video2.php</h3>
     <table class="table" id="myTable">
       <thead>
         <tr>

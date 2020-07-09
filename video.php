@@ -72,7 +72,9 @@ if(!isset($_SESSION['admin']) || $_SESSION['admin']!=true)
 <div class="container my-4 card">
  <h1 class="card-header">Welcome to Video Interview <?php echo $_SESSION['email']; ?></h1>
  <div class="card-footer">
-   
+   <div class="container">
+   <button class="button"><a href="video1.php">Start Interview</a></button>
+   </div>
  </div>
 </div>
 <div class="footer"> <p> @copyrights 2020</p> </div>
